@@ -3,6 +3,7 @@ package edu.hm.crm.service;
 import edu.hm.crm.CRMApplication;
 import edu.hm.crm.common.BadRequestException;
 import edu.hm.crm.common.ResourceNotFoundException;
+import edu.hm.crm.persistence.ContactRepository;
 import edu.hm.crm.persistence.Opportunity;
 import edu.hm.crm.persistence.OpportunityRepository;
 import org.slf4j.Logger;
@@ -26,9 +27,11 @@ public class OpportunityServiceImpl implements OpportunityService {
     private static final Logger logger = LoggerFactory.getLogger(CRMApplication.class);
 
     private final OpportunityRepository opportunityRepository;
+    private final ContactRepository contactRepository;
 
-    public OpportunityServiceImpl(OpportunityRepository opportunityRepository) {
+    public OpportunityServiceImpl(OpportunityRepository opportunityRepository, ContactRepository contactRepository) {
         this.opportunityRepository = opportunityRepository;
+        this.contactRepository = contactRepository;
     }
 
     @Override
@@ -51,19 +54,12 @@ public class OpportunityServiceImpl implements OpportunityService {
         }
 
         logger.debug("Verify contact ID");
-        String contactService = System.getenv().getOrDefault("CONTACT_SERVICE", "localhost:8080");
-        String contactApi = "http://" + contactService + ":8080/contacts/" + newOpportunity.getRelatedContactId();
-        RestTemplate restTemplate = new RestTemplate();
-        try {
-            ResponseEntity<String> response = restTemplate.getForEntity(contactApi, String.class);
-            if (response.getStatusCode().equals(HttpStatus.OK)) {
-                logger.debug("Save new opportunity");
-                return opportunityRepository.save(newOpportunity);
-            }
-        } catch (Exception exception) {
+        if (contactRepository.findById(newOpportunity.getRelatedContactId()).isPresent()) {
+            logger.debug("Save new opportunity");
+            return opportunityRepository.save(newOpportunity);
+        } else {
             throw new BadRequestException("Contact ID is invalid");
         }
-        throw new BadRequestException("Contact ID could not be verified");
     }
 
     @Override

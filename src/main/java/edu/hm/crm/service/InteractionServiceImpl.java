@@ -3,6 +3,7 @@ package edu.hm.crm.service;
 import edu.hm.crm.CRMApplication;
 import edu.hm.crm.common.BadRequestException;
 import edu.hm.crm.common.ResourceNotFoundException;
+import edu.hm.crm.persistence.ContactRepository;
 import edu.hm.crm.persistence.Interaction;
 import edu.hm.crm.persistence.InteractionRepository;
 import org.slf4j.Logger;
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,9 +26,11 @@ public class InteractionServiceImpl implements InteractionService {
     private static final Logger logger = LoggerFactory.getLogger(CRMApplication.class);
 
     private final InteractionRepository interactionRepository;
+    private final ContactRepository contactRepository;
 
-    public InteractionServiceImpl(InteractionRepository interactionRepository) {
+    public InteractionServiceImpl(InteractionRepository interactionRepository, ContactRepository contactRepository) {
         this.interactionRepository = interactionRepository;
+        this.contactRepository = contactRepository;
     }
 
     @Override
@@ -51,19 +53,12 @@ public class InteractionServiceImpl implements InteractionService {
         }
 
         logger.debug("Verify contact ID");
-        String contactService = System.getenv().getOrDefault("CONTACT_SERVICE", "localhost:8080");
-        String contactApi = "http://" + contactService + ":8080/contacts/" + newInteraction.getRelatedContactId();
-        RestTemplate restTemplate = new RestTemplate();
-        try {
-            ResponseEntity<String> response = restTemplate.getForEntity(contactApi, String.class);
-            if (response.getStatusCode().equals(HttpStatus.OK)) {
-                logger.debug("Save new interaction");
-                return interactionRepository.save(newInteraction);
-            }
-        } catch (Exception exception) {
+        if (contactRepository.findById(newInteraction.getRelatedContactId()).isPresent()) {
+            logger.debug("Save new interaction");
+            return interactionRepository.save(newInteraction);
+        } else {
             throw new BadRequestException("Contact ID is invalid");
         }
-        throw new BadRequestException("Contact ID could not be verified");
     }
 
     @Override

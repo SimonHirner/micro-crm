@@ -31,33 +31,9 @@ public class SwaggerConfig {
                 .groupName("Contacts")
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
-                .paths(regex("/contacts.*"))
+                .paths(PathSelectors.any())
                 .build()
-                .tags(new Tag(CONTACT_TAG, "Operations about Contacts."))
-                .apiInfo(apiInfo());
-    }
-
-    @Bean
-    public Docket interactionApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("Interactions")
-                .select()
-                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
-                .paths(regex("/interactions.*"))
-                .build()
-                .tags(new Tag(INTERACTION_TAG, "Operations about Interactions."))
-                .apiInfo(apiInfo());
-    }
-
-    @Bean
-    public Docket OpportunityApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("Opportunities")
-                .select()
-                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
-                .paths(regex("/opportunities.*"))
-                .build()
-                .tags(new Tag(OPPORTUNITY_TAG, "Operations about Opportunities."))
+                .tags(new Tag(CONTACT_TAG, "Operations about Contacts."), new Tag(INTERACTION_TAG, "Operations about Interactions."), new Tag(OPPORTUNITY_TAG, "Operations about Opportunities."))
                 .apiInfo(apiInfo());
     }
 
