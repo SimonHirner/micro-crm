@@ -1,6 +1,6 @@
-package edu.hm.contact;
+package edu.hm.crm;
 
-import edu.hm.contact.controller.ContactController;
+import edu.hm.crm.controller.ContactController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Simon Hirner
  */
 @SpringBootTest
-class ContactApplicationTest {
+class CRMApplicationTest {
 
 	@Autowired
 	private ContactController contactController;

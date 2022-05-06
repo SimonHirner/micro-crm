@@ -1,6 +1,6 @@
-package edu.hm.contact.service;
+package edu.hm.crm.service;
 
-import edu.hm.contact.persistence.Contact;
+import edu.hm.crm.persistence.Contact;
 
 import java.util.List;
 import java.util.Optional;

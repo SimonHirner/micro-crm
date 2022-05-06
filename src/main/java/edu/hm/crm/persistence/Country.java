@@ -1,4 +1,4 @@
-package edu.hm.contact.persistence;
+package edu.hm.crm.persistence;
 
 /**
  * Enum for the country of a contact.

@@ -1,4 +1,4 @@
-package edu.hm.contact.persistence;
+package edu.hm.crm.persistence;
 
 import javax.validation.constraints.Pattern;
 

@@ -1,6 +1,6 @@
-package edu.hm.contact.controller;
+package edu.hm.crm.controller;
 
-import edu.hm.contact.service.ContactService;
+import edu.hm.crm.service.ContactService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

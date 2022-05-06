@@ -1,10 +1,8 @@
-package edu.hm.contact;
+package edu.hm.crm;
 
-import edu.hm.contact.persistence.Address;
-import edu.hm.contact.persistence.Contact;
-import edu.hm.contact.persistence.Country;
-import edu.hm.contact.persistence.Gender;
-import edu.hm.contact.service.ContactService;
+import edu.hm.crm.persistence.*;
+import edu.hm.crm.service.ContactService;
+import edu.hm.crm.service.InteractionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -16,6 +14,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 
 /**
@@ -24,18 +23,20 @@ import java.time.Month;
  * @author Simon Hirner
  */
 @SpringBootApplication
-public class ContactApplication implements CommandLineRunner {
+public class CRMApplication implements CommandLineRunner {
 
-    private static final Logger logger = LoggerFactory.getLogger(ContactApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(CRMApplication.class);
 
     private final ContactService contactService;
+    private final InteractionService interactionService;
 
-    public ContactApplication(ContactService contactService) {
+    public CRMApplication(ContactService contactService, InteractionService interactionService) {
         this.contactService = contactService;
+        this.interactionService = interactionService;
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(ContactApplication.class, args);
+        SpringApplication.run(CRMApplication.class, args);
     }
 
     @Override
@@ -74,6 +75,16 @@ public class ContactApplication implements CommandLineRunner {
 
             contactService.saveContact(contact1);
             contactService.saveContact(contact2);
+
+            interactionService.deleteAllInteractions();
+
+            Interaction interaction1 = new Interaction(FormOfInteraction.EMAIL, "","", LocalDateTime.of(2021, Month.FEBRUARY, 2, 12,30));
+            Interaction interaction2 = new Interaction(FormOfInteraction.MEETING, "Produktberatung","",LocalDateTime.of(2019, Month.MAY, 13, 16,45));
+            Interaction interaction3 = new Interaction(FormOfInteraction.PHONE, "Bittet um einen Rückruf","",LocalDateTime.of(2020, Month.NOVEMBER, 22, 8,30));
+
+            interactionService.saveInteraction(interaction1);
+            interactionService.saveInteraction(interaction2);
+            interactionService.saveInteraction(interaction3);
         } catch (ConstraintViolationException exception) {
             logger.error(exception.getMessage());
         }

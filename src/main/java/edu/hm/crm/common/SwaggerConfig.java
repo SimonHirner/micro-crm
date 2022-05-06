@@ -1,4 +1,4 @@
-package edu.hm.contact.common;
+package edu.hm.crm.common;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,8 +34,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Contact REST API")
-                .description("REST API for Contact Microservice.")
+                .title("Micro-CRM REST API")
+                .description("REST API for Micro-CRM.")
                 .version("V1.0")
                 .build();
     }

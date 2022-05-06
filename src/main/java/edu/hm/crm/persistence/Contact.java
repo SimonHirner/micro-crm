@@ -1,4 +1,4 @@
-package edu.hm.contact.persistence;
+package edu.hm.crm.persistence;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;

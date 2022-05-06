@@ -1,9 +1,9 @@
-package edu.hm.contact.service;
+package edu.hm.crm.service;
 
-import edu.hm.contact.ContactApplication;
-import edu.hm.contact.common.ResourceNotFoundException;
-import edu.hm.contact.persistence.Contact;
-import edu.hm.contact.persistence.ContactRepository;
+import edu.hm.crm.CRMApplication;
+import edu.hm.crm.common.ResourceNotFoundException;
+import edu.hm.crm.persistence.Contact;
+import edu.hm.crm.persistence.ContactRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class ContactServiceImpl implements ContactService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ContactApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(CRMApplication.class);
 
     private final ContactRepository contactRepository;
 

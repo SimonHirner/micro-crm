@@ -1,11 +1,11 @@
-package edu.hm.contact.controller;
+package edu.hm.crm.controller;
 
-import edu.hm.contact.ContactApplication;
-import edu.hm.contact.common.BadRequestException;
-import edu.hm.contact.common.ResourceNotFoundException;
-import edu.hm.contact.common.SwaggerConfig;
-import edu.hm.contact.persistence.Contact;
-import edu.hm.contact.service.ContactService;
+import edu.hm.crm.CRMApplication;
+import edu.hm.crm.common.BadRequestException;
+import edu.hm.crm.common.ResourceNotFoundException;
+import edu.hm.crm.common.SwaggerConfig;
+import edu.hm.crm.persistence.Contact;
+import edu.hm.crm.service.ContactService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -27,7 +27,7 @@ import java.util.List;
 @Api(tags = {SwaggerConfig.CONTACT_TAG})
 public class ContactController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ContactApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(CRMApplication.class);
 
     private final ContactService contactService;
 

@@ -1,7 +1,7 @@
-package edu.hm.contact.repository;
+package edu.hm.crm.repository;
 
-import edu.hm.contact.persistence.Contact;
-import edu.hm.contact.persistence.ContactRepository;
+import edu.hm.crm.persistence.Contact;
+import edu.hm.crm.persistence.ContactRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
