@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/interactions")
 @CrossOrigin(origins = "*")
-@Api(tags = {SwaggerConfig.CONTACT_TAG})
+@Api(tags = {SwaggerConfig.INTERACTION_TAG})
 public class InteractionController {
 
     private static final Logger logger = LoggerFactory.getLogger(CRMApplication.class);

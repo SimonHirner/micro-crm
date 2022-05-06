@@ -11,6 +11,8 @@ import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import static springfox.documentation.builders.PathSelectors.regex;
+
 /**
  * Configuration for Swagger API documentation.
  *
@@ -20,15 +22,42 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerConfig {
 
     public static final String CONTACT_TAG = "Contacts";
+    public static final String INTERACTION_TAG = "Interactions";
+    public static final String OPPORTUNITY_TAG = "Opportunities";
 
     @Bean
-    public Docket api() {
+    public Docket contactApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("Contacts")
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
-                .paths(PathSelectors.any())
+                .paths(regex("/contacts.*"))
                 .build()
                 .tags(new Tag(CONTACT_TAG, "Operations about Contacts."))
+                .apiInfo(apiInfo());
+    }
+
+    @Bean
+    public Docket interactionApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("Interactions")
+                .select()
+                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                .paths(regex("/interactions.*"))
+                .build()
+                .tags(new Tag(INTERACTION_TAG, "Operations about Interactions."))
+                .apiInfo(apiInfo());
+    }
+
+    @Bean
+    public Docket OpportunityApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("Opportunities")
+                .select()
+                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                .paths(regex("/opportunities.*"))
+                .build()
+                .tags(new Tag(OPPORTUNITY_TAG, "Operations about Opportunities."))
                 .apiInfo(apiInfo());
     }
 

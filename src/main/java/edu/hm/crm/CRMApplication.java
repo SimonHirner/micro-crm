@@ -3,6 +3,7 @@ package edu.hm.crm;
 import edu.hm.crm.persistence.*;
 import edu.hm.crm.service.ContactService;
 import edu.hm.crm.service.InteractionService;
+import edu.hm.crm.service.OpportunityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -29,10 +30,12 @@ public class CRMApplication implements CommandLineRunner {
 
     private final ContactService contactService;
     private final InteractionService interactionService;
+    private final OpportunityService opportunityService;
 
-    public CRMApplication(ContactService contactService, InteractionService interactionService) {
+    public CRMApplication(ContactService contactService, InteractionService interactionService, OpportunityService opportunityService) {
         this.contactService = contactService;
         this.interactionService = interactionService;
+        this.opportunityService = opportunityService;
     }
 
     public static void main(String[] args) {
@@ -85,6 +88,18 @@ public class CRMApplication implements CommandLineRunner {
             interactionService.saveInteraction(interaction1);
             interactionService.saveInteraction(interaction2);
             interactionService.saveInteraction(interaction3);
+
+            opportunityService.deleteAllOpportunities();
+
+            Opportunity opportunity1 = new Opportunity(LocalDate.of(2023, Month.JANUARY, 6),
+                    1800.0, 1800.0, 100.0, Status.PLANNED, "Hohes Kaufinteresse geäußert",
+                    "");
+            Opportunity opportunity2 = new Opportunity(LocalDate.of(2022, Month.DECEMBER, 23),
+                    12000.0, 13000.0, 800.0, Status.IN_PROGRESS, "",
+                    "");
+
+            opportunityService.saveOpportunity(opportunity1);
+            opportunityService.saveOpportunity(opportunity2);
         } catch (ConstraintViolationException exception) {
             logger.error(exception.getMessage());
         }
