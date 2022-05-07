@@ -1,5 +1,5 @@
-# Contact Microservice
-Spring Boot microservice for contact management of a CRM system.
+# Micro-CRM
+Spring Boot webservice for contact management of a CRM system.
 
 ## Features
 * MongoDB integration
