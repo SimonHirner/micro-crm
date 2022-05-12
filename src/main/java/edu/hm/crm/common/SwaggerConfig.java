@@ -28,7 +28,6 @@ public class SwaggerConfig {
     @Bean
     public Docket contactApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("Contacts")
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
                 .paths(PathSelectors.any())

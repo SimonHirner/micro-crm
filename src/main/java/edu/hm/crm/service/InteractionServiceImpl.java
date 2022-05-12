@@ -53,12 +53,15 @@ public class InteractionServiceImpl implements InteractionService {
         }
 
         logger.debug("Verify contact ID");
-        if (contactRepository.findById(newInteraction.getRelatedContactId()).isPresent()) {
-            logger.debug("Save new interaction");
-            return interactionRepository.save(newInteraction);
-        } else {
-            throw new BadRequestException("Contact ID is invalid");
-        }
+        logger.debug("Save new interaction");
+        return interactionRepository.save(newInteraction);
+
+//        if (contactRepository.findById(newInteraction.getRelatedContactId()).isPresent()) {
+//            logger.debug("Save new interaction");
+//            return interactionRepository.save(newInteraction);
+//        } else {
+//            throw new BadRequestException("Contact ID is invalid");
+//        }
     }
 
     @Override

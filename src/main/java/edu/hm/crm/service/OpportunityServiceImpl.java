@@ -54,12 +54,15 @@ public class OpportunityServiceImpl implements OpportunityService {
         }
 
         logger.debug("Verify contact ID");
-        if (contactRepository.findById(newOpportunity.getRelatedContactId()).isPresent()) {
-            logger.debug("Save new opportunity");
-            return opportunityRepository.save(newOpportunity);
-        } else {
-            throw new BadRequestException("Contact ID is invalid");
-        }
+        logger.debug("Save new opportunity");
+        return opportunityRepository.save(newOpportunity);
+
+//        if (contactRepository.findById(newOpportunity.getRelatedContactId()).isPresent()) {
+//            logger.debug("Save new opportunity");
+//            return opportunityRepository.save(newOpportunity);
+//        } else {
+//            throw new BadRequestException("Contact ID is invalid");
+//        }
     }
 
     @Override
